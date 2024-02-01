@@ -132,7 +132,7 @@ export default function Home() {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>Long Test(35%): </span>
+                  <span className=' text-white '>Summative Exam(35%): </span>
                   <span className='capitalize text-white '>{items.SE}/60 | {items.SEP}</span>
                 </div>
               </li>
