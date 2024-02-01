@@ -116,9 +116,7 @@ export default function Home() {
               className='text-white bg-green-500 hover:bg-green-700 bg-slate-950 hover:bg-slate-900 p-3 text-xl'
               type='submit'
             >
-              Go →
-              
-              
+              →
             </button>
           </form>
           <ul>
@@ -134,8 +132,8 @@ export default function Home() {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>Summative Exam(35%): </span>
-                  <span className='capitalize text-white '>{items.SE}/60 | {items.SEP}</span>
+                  <span className=' text-white '>Summative Examination(35%): </span>
+                  <span className='capitalize text-white '> {items.SE}/60 | {items.SEP}</span>
                 </div>
               </li>
               <li
@@ -158,7 +156,7 @@ export default function Home() {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>Tentative grade of the current quarter: </span>
+                  <span className=' text-white '>Tentative grade : </span>
                   <span className='capitalize text-white '> {items.second} | {items.grade}</span>
                 </div>
               </li>
