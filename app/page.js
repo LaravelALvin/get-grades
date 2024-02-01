@@ -140,7 +140,7 @@ export default function Home() {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>Alternative Assessment(40%): </span>
+                  <span className=' text-white '>Alternative Assessments(40%): </span>
                   <span className='capitalize text-white '>{items.AA}/100 | {items.AAP}</span>
                 </div>
               </li>
@@ -148,7 +148,7 @@ export default function Home() {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>Formative Assessment(25%): </span>
+                  <span className=' text-white '>Formative Assessments(25%): </span>
                   <span className='capitalize text-white '>{items.FA}/70 | {items.FAP}</span>
                 </div>
               </li>
