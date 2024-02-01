@@ -124,7 +124,7 @@ export default function Home() {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>NAME: </span>
+                  <span className=' text-white '>Name: </span>
                   <span className='capitalize text-white '>{items.name}</span>
                 </div>
               </li>
@@ -156,7 +156,7 @@ export default function Home() {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>Tentative grade : </span>
+                  <span className=' text-white '>Tentative quarter grade : </span>
                   <span className='capitalize text-white '> {items.second} | {items.grade}</span>
                 </div>
               </li>
