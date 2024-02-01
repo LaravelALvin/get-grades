@@ -164,7 +164,7 @@ export default function Home() {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>Previous Quarter Grade: </span>
+                  <span className=' text-white '>Previous Grade: </span>
                   <span className='capitalize text-white '>{items.first}</span>
                 </div>
               </li>
