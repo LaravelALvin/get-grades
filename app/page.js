@@ -92,7 +92,7 @@ export default function Home() {
   return (
     <main className='flex min-h-screen flex-col items-center justify-between sm:p-24 p-4'>
       <div className='z-10 w-full max-w-5xl items-center justify-between font-mono text-sm '>
-        <h1 className='text-4xl p-4 text-center'>Computer Science 3 Grade Tracker</h1>
+        <h1 className='text-4xl sm:text-5xl md:text-6xl gradient p-4 text-center'>Computer Science 3 Grade</h1>
         <div className='bg-slate-800 p-4 rounded-lg'>
           <form className='grid grid-cols-6 items-center text-black'>
             <input
@@ -113,10 +113,12 @@ export default function Home() {
             />
             <button
               onClick={getGrade}
-              className='text-white bg-slate-950 hover:bg-slate-900 p-3 text-xl'
+              className='text-white bg-green-500 hover:bg-green-700 bg-slate-950 hover:bg-slate-900 p-3 text-xl'
               type='submit'
             >
-              +
+              Go →
+              
+              
             </button>
           </form>
           <ul>
