@@ -1,7 +1,7 @@
 // components/ErrorModal.js
 import React from 'react';
 
-export default function successModal({ isOpen, message, onClose }) {
+export default function SuccessModal({ isOpen, message, onClose }) {
   if (!isOpen) return null;
 
   return (

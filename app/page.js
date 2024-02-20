@@ -9,6 +9,8 @@ import {
 import { db } from './firebase';
 import ErrorModal from './ErrorModal';
 import emailjs from '@emailjs/browser';
+import SuccessModal from './successModal';
+
 
 export default function Home() {
   const [items, setItems] = useState([]);
@@ -17,6 +19,9 @@ export default function Home() {
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const [disabled, setDisabled] = useState(false);
   const [countdown, setCountdown] = useState(60);
@@ -55,7 +60,7 @@ export default function Home() {
   const handleClick = () => {
     setDisabled(true);
     localStorage.setItem('buttonTimestamp', new Date().getTime().toString());
-    startCountdown(countdown);
+    startCountdown(60);
   };
   // Add item to database
   // const addItem = async (e) => {
@@ -143,7 +148,7 @@ export default function Home() {
       });
 
     if(email==""){
-      const error = new Error('EMPTY');
+      const error = new Error('Please enter your valid school email.');
       setErrorMessage(error.message);
       setModalOpen(true);
       setItems([]);
@@ -153,7 +158,6 @@ export default function Home() {
         if(i >= itemsArr.length-1){
           const error = new Error('Please enter your valid school email.');
           setErrorMessage(error.message);
-          setModalOpen(true);
           setItems([]);
         }else{
           let student = itemsArr[i];
@@ -165,9 +169,10 @@ export default function Home() {
             })
             .then(() => {
               handleClick();
+              setModalOpen(false);
               const error = new Error('Code successfully sent to your email.');
-              setErrorMessage(error.message);
-              setModalOpen(true);
+              setSuccessMessage(error.message);
+              setSuccessModalOpen(true);
               setItems([]);
             }, (err) => {
               alert(JSON.stringify(err));
@@ -258,7 +263,7 @@ export default function Home() {
               >
                 <div className='p-4 w-full flex justify-between'>
                   <span className=' text-white '>Formative Assessments(25%): </span>
-                  <span className='capitalize text-white '>{items.FA}/70 | {items.FAP}</span>
+                  <span className='capitalize text-white '>{items.FA}/0 | {items.FAP}</span>
                 </div>
               </li>
               <li
@@ -292,6 +297,12 @@ export default function Home() {
               isOpen={isModalOpen}
               message={errorMessage}
               onClose={() => setModalOpen(false)}
+            />
+
+            <SuccessModal
+              isOpen={isSuccessModalOpen}
+              message={successMessage}
+              onClose={() => setSuccessModalOpen(false)}
             />
           </div>
       </div>
