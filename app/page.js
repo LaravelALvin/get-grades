@@ -15,8 +15,7 @@ import SuccessModal from './SuccessModal';
 export default function Home() {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState({ email: '', code: '', name: '' });
-  const [newStudent, setStudent] = useState([]);
-
+  
   const [isModalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
