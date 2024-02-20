@@ -35,7 +35,6 @@ export default function Home() {
         startCountdown(remainingTime);
       }else{
         setDisabled(false);
-        setCountdown('');
         localStorage.removeItem('buttonTimestamp');
       }
     }
@@ -48,7 +47,6 @@ export default function Home() {
       if (countdown === 0) {
         clearInterval(interval);
         setDisabled(false);
-        setCountdown('');
         localStorage.removeItem('buttonTimestamp');
       }
     }, 1000);
