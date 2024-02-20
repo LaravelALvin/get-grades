@@ -61,32 +61,7 @@ export default function Home() {
     localStorage.setItem('buttonTimestamp', new Date().getTime().toString());
     startCountdown(countdown);
   };
-  // Add item to database
-  // const addItem = async (e) => {
-  //   e.preventDefault();
-  //   if (newItem.name !== '' && newItem.price !== '') {
-  //     // setItems([...items, newItem]);
-  //     await addDoc(collection(db, 'items'), {
-  //       name: newItem.name.trim(),
-  //       price: newItem.price,
-  //     });
-  //     setNewItem({ name: '', price: '' });
-  //   }
-  // };
-
-  // Read items from database
-  // useEffect(() => {
-  //   const q = query(collection(db, 'items'));
-  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
-  //     let itemsArr = [];
-
-  //     querySnapshot.forEach((doc) => {
-  //       itemsArr.push({ ...doc.data(), id: doc.id });
-  //     });
-  //     setItems(itemsArr);
-  //     return () => unsubscribe();
-  //   });
-  // }, []);
+  
 
   const getGrade = async (e) => {
 
@@ -95,9 +70,7 @@ export default function Home() {
     let email =newItem['email'];
     let code = newItem['code'];
 
-    // const classCode = Math.floor(Math.random() * 900000);
-    // console.log(String(classCode).padStart(6, '0'));
-
+   
     const q = query(collection(db, 'items'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
           let itemsArr = [];
