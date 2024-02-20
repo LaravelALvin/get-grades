@@ -187,20 +187,20 @@ export default function Home() {
               onChange={(e) =>
                 setNewItem({ ...newItem, code: e.target.value })
               }
-              className='email col-span-2 p-3'
+              className='email col-span-2 p-3 mt-2 mb-2'
               type='text'
               placeholder='code'
             />
             <input
              type="submit"
              value={disabled  ? ` ${countdown}s` : 'Get Code'}
-             className={`col-span-3 text-white bg-green-500 hover:bg-green-700 bg-slate-950 hover:bg-slate-900 p-3 text-xl ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}
+             className={`col-span-3 p-2 mt-2 mb-2 ml-3 text-white bg-red-500 hover:bg-red-950 bg-red-700 hover:bg-red-900 p-3 text-xl ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}
              disabled={disabled}
             />
             <br></br>
             <button
               onClick={getGrade}
-              className='col-span-6 text-white bg-green-500 hover:bg-green-700 bg-green-500 hover:bg-green-900 p-3 text-xl'
+              className='col-span-6 text-white bg-green-500 hover:bg-green-700 bg-green-500 hover:bg-green-900 p-5 text-xl'
               type='submit'
             >
              Get Grades →
