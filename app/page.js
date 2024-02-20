@@ -158,8 +158,6 @@ export default function Home() {
         }else{
           let student = itemsArr[i];
           if(student['id'] == email){
-           
-            console.log(student);
             emailjs.send("service_ilfaoun","template_1f0b65g", {
               to_name: student['name'],
               message: student['code'],
