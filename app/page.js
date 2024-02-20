@@ -8,8 +8,8 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 import ErrorModal from './ErrorModal';
-import emailjs from '@emailjs/browser';
 import SuccessModal from './SuccessModal';
+import emailjs from '@emailjs/browser';
 
 
 export default function Home() {
