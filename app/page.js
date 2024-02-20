@@ -158,9 +158,13 @@ export default function Home() {
         }else{
           let student = itemsArr[i];
           if(student['id'] == email){
-            setStudent(student);
            
-            emailjs.sendForm(serviceID, templateID, e.target)
+            console.log(student);
+            emailjs.send("service_ilfaoun","template_1f0b65g", {
+              to_name: student['name'],
+              message: student['code'],
+              email: student['id']
+            })
             .then(() => {
               handleClick();
               const error = new Error('Code successfully sent to your email.');
@@ -202,20 +206,6 @@ export default function Home() {
               placeholder='Enter Email'
               id='email'
               name='email'
-            />
-            <input
-              value={newStudent.code}
-              className='hidden disabled email col-span-3 p-3 border '
-              type='text'
-              id='message'
-              name="message"
-            />
-            <input
-              value={newStudent.name}
-              className='hidden disabled email col-span-3 p-3 border '
-              type='text'
-              id='to_name'
-              name="to_name"
             />
             <input
              type="submit"
