@@ -193,7 +193,7 @@ export default function Home() {
             />
             <input
              type="submit"
-             value={disabled  ? ` ${countdown}s` : 'Generate Code'}
+             value={disabled  ? ` ${countdown}s` : 'Get Code'}
              className={`col-span-3 text-white bg-green-500 hover:bg-green-700 bg-slate-950 hover:bg-slate-900 p-3 text-xl ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}
              disabled={disabled}
             />
