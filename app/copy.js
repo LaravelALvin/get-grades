@@ -8,14 +8,13 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 import ErrorModal from './ErrorModal';
+import SuccessModal from './SuccessModal';
 import emailjs from '@emailjs/browser';
-import SuccessModal from './successModal';
 
 
 export default function Home() {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState({ email: '', code: '', name: '' });
-  const [newStudent, setStudent] = useState([]);
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -197,41 +196,43 @@ export default function Home() {
         <h1 className='text-4xl sm:text-5xl md:text-6xl gradient p-4 text-center'>Computer Science 3 Grade</h1>
         <div className='bg-slate-800 p-4 rounded-lg'>
           <form 
-            className='grid grid-cols-6 items-center text-black'
+            className='grid grid-cols-4 items-center text-black'
             onSubmit={getCode}
             id='myform'
             >
             <input
               value={newItem.email}
               onChange={(e) => setNewItem({ ...newItem, email: e.target.value })}
-              className='email col-span-3 p-3 border '
+              className='email col-span-6 p-3 border '
               type='text'
               placeholder='Enter Email'
               id='email'
               name='email'
             />
             <input
-             type="submit"
-             value={disabled  ? ` ${countdown}s` : 'Get Code'}
-             className={`text-white bg-green-500 hover:bg-green-700 bg-slate-950 hover:bg-slate-900 p-3 text-xl ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}
-             disabled={disabled}
-            />
-            <input
               value={newItem.code}
               onChange={(e) =>
                 setNewItem({ ...newItem, code: e.target.value })
               }
-              className='col-span-1 p-3 border mx-3'
+              className='email col-span-2 p-3'
               type='text'
               placeholder='code'
             />
+            <input
+             type="submit"
+             value={disabled  ? ` ${countdown}s` : 'Generate Code'}
+             className={`col-span-3 text-white bg-green-500 hover:bg-green-700 bg-slate-950 hover:bg-slate-900 p-3 text-xl ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}
+             disabled={disabled}
+            />
+            <br></br>
             <button
               onClick={getGrade}
-              className='text-white bg-green-500 hover:bg-green-700 bg-slate-950 hover:bg-slate-900 p-3 text-xl'
+              className='col-span-6 text-white bg-green-500 hover:bg-green-700 bg-green-500 hover:bg-green-900 p-3 text-xl'
               type='submit'
             >
-              →
+             Get Grades →
             </button>
+            
           </form>
           <ul>
               <li
