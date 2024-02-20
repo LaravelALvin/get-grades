@@ -60,7 +60,7 @@ export default function Home() {
   const handleClick = () => {
     setDisabled(true);
     localStorage.setItem('buttonTimestamp', new Date().getTime().toString());
-    startCountdown(60);
+    startCountdown(countdown);
   };
   // Add item to database
   // const addItem = async (e) => {
