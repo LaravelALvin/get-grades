@@ -1,4 +1,3 @@
-// components/ErrorModal.js
 import React from 'react';
 
 export default function SuccessModal({ isOpen, message, onClose }) {
