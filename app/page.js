@@ -8,7 +8,7 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 import ErrorModal from './ErrorModal';
-import SuccessModal from './successModal';
+import SuccessModal from './SuccessModal';
 import emailjs from '@emailjs/browser';
 
 
