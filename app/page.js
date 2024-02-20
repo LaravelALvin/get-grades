@@ -8,16 +8,55 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 import ErrorModal from './ErrorModal';
+import emailjs from '@emailjs/browser';
 
 export default function Home() {
   const [items, setItems] = useState([]);
-  const [newItem, setNewItem] = useState({ email: '', code: '' });
+  const [newItem, setNewItem] = useState({ email: '', code: '', name: '' });
+  const [newStudent, setStudent] = useState([]);
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
- 
-  
 
+  const [disabled, setDisabled] = useState(false);
+  const [countdown, setCountdown] = useState(60);
+
+  useEffect(() => {
+    const storedTimestamp = localStorage.getItem('buttonTimestamp');
+    const currentTime = new Date().getTime();
+    
+    if (storedTimestamp) {
+      const elapsedSeconds = Math.floor((currentTime - parseInt(storedTimestamp)) / 1000);
+      const remainingTime = Math.max(60 - elapsedSeconds, 0);
+      
+      if (remainingTime > 0) {
+        setDisabled(true);
+        setCountdown(remainingTime);
+        startCountdown(remainingTime);
+      }else{
+        setDisabled(false);
+        localStorage.removeItem('buttonTimestamp');
+      }
+    }
+  }, []);
+
+  const startCountdown = (initialTime) => {
+    const interval = setInterval(() => {
+      setCountdown((prev) => Math.max(prev - 1, 0));
+      
+      if (countdown === 0) {
+        clearInterval(interval);
+        setDisabled(false);
+        localStorage.removeItem('buttonTimestamp');
+      }
+    }, 1000);
+  };
+
+  const handleClick = () => {
+    setDisabled(true);
+    localStorage.setItem('buttonTimestamp', new Date().getTime().toString());
+    startCountdown(countdown);
+  };
   // Add item to database
   // const addItem = async (e) => {
   //   e.preventDefault();
@@ -66,7 +105,7 @@ export default function Home() {
             if(student['id'] == email){
               if(student['code'] == code){
                 setItems(student);
-                console.log(student);
+                //console.log(student);
                 setModalOpen(false);
                 return () => unsubscribe();
               }else{
@@ -87,6 +126,62 @@ export default function Home() {
             }
           }
         });
+
+  };
+
+  const getCode = async (e) =>{
+    e.preventDefault();
+    let email = newItem['email'];
+    const serviceID = 'default_service';
+    const templateID = 'template_1f0b65g';
+    emailjs.init('x80W0qhFuxrQZ8iu1');
+    const q = query(collection(db, 'items'));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let itemsArr = [];
+      querySnapshot.forEach((doc) => {
+        itemsArr.push({ ...doc.data(), id: doc.id });
+      });
+
+    if(email==""){
+      const error = new Error('EMPTY');
+      setErrorMessage(error.message);
+      setModalOpen(true);
+      setItems([]);
+    }else{
+     
+      for(var i = 0; i < itemsArr.length; i++){
+        if(i >= itemsArr.length-1){
+          const error = new Error('Please enter your valid school email.');
+          setErrorMessage(error.message);
+          setModalOpen(true);
+          setItems([]);
+        }else{
+          let student = itemsArr[i];
+          if(student['id'] == email){
+            setStudent(student);
+           
+            emailjs.sendForm(serviceID, templateID, e.target)
+            .then(() => {
+              handleClick();
+              const error = new Error('Code successfully sent to your email.');
+              setErrorMessage(error.message);
+              setModalOpen(true);
+              setItems([]);
+            }, (err) => {
+              alert(JSON.stringify(err));
+            });
+          }
+        }
+        
+      }
+    } 
+
+   
+    });
+
+
+    
+   
   };
 
   return (
@@ -94,20 +189,46 @@ export default function Home() {
       <div className='z-10 w-full max-w-5xl items-center justify-between font-mono text-sm '>
         <h1 className='text-4xl sm:text-5xl md:text-6xl gradient p-4 text-center'>Computer Science 3 Grade</h1>
         <div className='bg-slate-800 p-4 rounded-lg'>
-          <form className='grid grid-cols-6 items-center text-black'>
+          <form 
+            className='grid grid-cols-6 items-center text-black'
+            onSubmit={getCode}
+            id='myform'
+            >
             <input
               value={newItem.email}
               onChange={(e) => setNewItem({ ...newItem, email: e.target.value })}
-              className='col-span-3 p-3 border'
+              className='email col-span-3 p-3 border '
               type='text'
               placeholder='Enter Email'
+              id='email'
+              name='email'
+            />
+            <input
+              value={newStudent.code}
+              className='hidden disabled email col-span-3 p-3 border '
+              type='text'
+              id='message'
+              name="message"
+            />
+            <input
+              value={newStudent.name}
+              className='hidden disabled email col-span-3 p-3 border '
+              type='text'
+              id='to_name'
+              name="to_name"
+            />
+            <input
+             type="submit"
+             value={disabled  ? ` ${countdown}s` : 'Get Code'}
+             className={`text-white bg-green-500 hover:bg-green-700 bg-slate-950 hover:bg-slate-900 p-3 text-xl ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}
+             disabled={disabled}
             />
             <input
               value={newItem.code}
               onChange={(e) =>
                 setNewItem({ ...newItem, code: e.target.value })
               }
-              className='col-span-2 p-3 border mx-3'
+              className='col-span-1 p-3 border mx-3'
               type='text'
               placeholder='code'
             />
