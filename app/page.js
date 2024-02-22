@@ -147,7 +147,10 @@ export default function Home() {
               setSuccessModalOpen(true);
               setItems([]);
             }, (err) => {
-              alert(JSON.stringify(err));
+              const error = new Error(JSON.stringify(err.status) +":" + JSON.stringify(err.text)+"\n\n\n"  + " The developer has no more money to use the email services, any donation will be appreciated.");
+              setErrorMessage(error.message);
+              setModalOpen(true);
+              setItems([]);
             });
           }
         }
