@@ -223,7 +223,7 @@ export default function Home() {
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>Summative Examination(35%): </span>
+                  <span className=' text-white '>3rd Quarter Examination(35%): </span>
                   <span className='capitalize text-white '> {items.SE}/60 | {items.SEP}</span>
                 </div>
               </li>
@@ -240,15 +240,15 @@ export default function Home() {
               >
                 <div className='p-4 w-full flex justify-between'>
                   <span className=' text-white '>Formative Assessments(25%): </span>
-                  <span className='capitalize text-white '>{items.FA}/0 | {items.FAP}</span>
+                  <span className='capitalize text-white '>{items.FA}/65 | {items.FAP}</span>
                 </div>
               </li>
               <li
                 className='my-4 w-full flex justify-between bg-slate-950'
               >
                 <div className='p-4 w-full flex justify-between'>
-                  <span className=' text-white '>Tentative quarter grade : </span>
-                  <span className='capitalize text-white '> {items.second} | {items.grade}</span>
+                  <span className=' text-white '>Tentative grade : </span>
+                  <span className='capitalize text-white '> {items.second} | {items.grade} </span>
                 </div>
               </li>
               <li
@@ -269,6 +269,13 @@ export default function Home() {
               </li>
           </ul>
         </div>
+        <div className='bg-slate-900 p-4 rounded-lg mt-5'>
+          <h5 className='text-3xl sm:text-1xl md:text-1xl text-rose-500 p-4 text-left'>Reminder</h5>
+          <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- QE remaining score to be earned 60pts(35.00%)</h6>
+          <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- AA remaining score to be earned 50pts(20.00%)</h6>
+          <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- FA remaining score to be earned 40pts(14.23%)</h6>
+        </div>
+        
           <div>
             <ErrorModal
               isOpen={isModalOpen}
