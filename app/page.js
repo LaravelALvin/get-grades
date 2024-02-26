@@ -169,7 +169,7 @@ export default function Home() {
   return (
     <main className='flex min-h-screen flex-col items-center justify-between sm:p-24 p-4'>
       <div className='z-10 w-full max-w-5xl items-center justify-between font-mono text-sm '>
-        <h1 className='text-4xl sm:text-5xl md:text-6xl gradient p-4 text-center'>Computer Science 3 Grade</h1>
+        <h1 className='mt--20 text-4xl sm:text-5xl md:text-6xl gradient p-4 text-center'>Get Grades</h1>
         <div className='bg-slate-800 p-4 rounded-lg'>
           <form 
             className='grid grid-cols-4 items-center text-black'
