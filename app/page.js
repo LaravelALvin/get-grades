@@ -32,7 +32,7 @@ export default function Home() {
     // Simulate an async operation, e.g., fetching data
     const fetchData = async () => {
       // Simulating a delay
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       setIsLoading(false);
     };
 
