@@ -10,6 +10,7 @@ import { db } from './firebase';
 import ErrorModal from './ErrorModal';
 import SuccessModal from './SuccessModal';
 import emailjs from '@emailjs/browser';
+import LoadingModal from './loadingModal';
 
 
 export default function Home() {
@@ -24,6 +25,19 @@ export default function Home() {
 
   const [disabled, setDisabled] = useState(false);
   const [countdown, setCountdown] = useState(60);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    // Simulate an async operation, e.g., fetching data
+    const fetchData = async () => {
+      // Simulating a delay
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const storedTimestamp = localStorage.getItem('buttonTimestamp');
@@ -43,6 +57,8 @@ export default function Home() {
       }
     }
   }, []);
+
+ 
 
   const startCountdown = (initialTime) => {
     const interval = setInterval(() => {
@@ -64,107 +80,99 @@ export default function Home() {
   
 
   const getGrade = async (e) => {
-
-  
     e.preventDefault();
-    let email =newItem['email'];
-    let code = newItem['code'];
+    const email = newItem['email'];
+    const code = newItem['code'];
+    setIsLoading(true);
 
-   
     const q = query(collection(db, 'items'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          let itemsArr = [];
-          querySnapshot.forEach((doc) => {
-            itemsArr.push({ ...doc.data(), id: doc.id });
-          });
-          for(var i = 0; i < itemsArr.length; i++){
-            let student = itemsArr[i];
-            if(student['id'] == email){
-              if(student['code'] == code){
-                setItems(student);
-                //console.log(student);
-                setModalOpen(false);
-                return () => unsubscribe();
-              }else{
-                const error = new Error('Invalid Code');
-                setErrorMessage(error.message);
-                setModalOpen(true);
-                setItems([]);
-                
-              }
-              break;
-            }else{
-              
-              
-              const error = new Error('Please enter your valid school email.');
-              setErrorMessage(error.message);
-              setModalOpen(true);
-              setItems([]);
-            }
-          }
-        });
-
+      const student = findStudent(querySnapshot, email, code);
+      setIsLoading(false);
+      if (student) {
+        setItems(student);
+        setModalOpen(false);
+      } else {
+        handleInvalidInput();
+      }
+  
+      return () => unsubscribe();
+    });
   };
+  
+  const findStudent = (querySnapshot, email, code) => {
+    for (const doc of querySnapshot.docs) {
+      const student = { ...doc.data(), id: doc.id };
+  
+      if (student['id'] === email && student['code'] === code) {
+        return student;
+      }
+    }
+  
+    return null;
+  };
+  
+  const handleInvalidInput = () => {
+    const error = new Error('Invalid Code');
+    setErrorMessage(error.message);
+    setModalOpen(true);
+    setItems([]);
+  };
+  
 
-  const getCode = async (e) =>{
+  const getCode = async (e) => {
     e.preventDefault();
     let email = newItem['email'];
-    const serviceID = 'default_service';
-    const templateID = 'template_1f0b65g';
     emailjs.init('x80W0qhFuxrQZ8iu1');
     const q = query(collection(db, 'items'));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let itemsArr = [];
       querySnapshot.forEach((doc) => {
         itemsArr.push({ ...doc.data(), id: doc.id });
       });
-
-    if(email==""){
-      const error = new Error('Please enter your valid school email.');
-      setErrorMessage(error.message);
-      setModalOpen(true);
-      setItems([]);
-    }else{
-     
-      for(var i = 0; i < itemsArr.length; i++){
-        if(i >= itemsArr.length-1){
-          const error = new Error('Please enter your valid school email.');
-          setErrorMessage(error.message);
-          setItems([]);
-        }else{
-          let student = itemsArr[i];
-          if(student['id'] == email){
-            emailjs.send("service_ilfaoun","template_1f0b65g", {
-              to_name: student['name'],
-              message: student['code'],
-              email: student['id']
-            })
-            .then(() => {
-              handleClick();
-              setModalOpen(false);
-              const error = new Error('Code successfully sent to your email.');
-              setSuccessMessage(error.message);
-              setSuccessModalOpen(true);
-              setItems([]);
-            }, (err) => {
-              const error = new Error(JSON.stringify(err.status) +":" + JSON.stringify(err.text)+"\n\n\n"  + " The developer has no more money to use the email services, any donation will be appreciated.");
-              setErrorMessage(error.message);
-              setModalOpen(true);
-              setItems([]);
-            });
+  
+      if (email === "") {
+        const error = new Error('Please enter your valid school email.');
+        setErrorMessage(error.message);
+        setModalOpen(true);
+        setItems([]);
+      } else {
+        itemsArr.forEach((student, i) => {
+          if (i >= itemsArr.length - 1) {
+            const error = new Error('Please enter your valid school email.');
+            setErrorMessage(error.message);
+            setItems([]);
+          } else if (student['id'] === email) {
+            emailjs
+              .send('service_ilfaoun', 'template_1f0b65g', {
+                to_name: student['name'],
+                message: student['code'],
+                email: student['id'],
+              })
+              .then(
+                () => {
+                  handleClick();
+                  setModalOpen(false);
+                  const error = new Error('Code successfully sent to your email.');
+                  setSuccessMessage(error.message);
+                  setSuccessModalOpen(true);
+                  setItems([]);
+                },
+                (err) => {
+                  const error = new Error(
+                    `${JSON.stringify(err.status)}: ${JSON.stringify(err.text)}\n\n\n The developer has no more money to use the email services, any donation will be appreciated.`
+                  );
+                  setErrorMessage(error.message);
+                  setModalOpen(true);
+                  setItems([]);
+                }
+              );
           }
-        }
-        
+        });
       }
-    } 
-
-   
     });
-
-
-    
-   
   };
+  
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between sm:p-24 p-4'>
@@ -289,6 +297,12 @@ export default function Home() {
               onClose={() => setSuccessModalOpen(false)}
             />
           </div>
+          <div>
+            <h1>Welcome to Next.js</h1>
+            <LoadingModal isLoading={isLoading} />
+          </div>
+
+          
       </div>
     </main>
   );

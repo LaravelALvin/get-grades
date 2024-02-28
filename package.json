@@ -10,13 +10,13 @@
   },
   "dependencies": {
     "@emailjs/browser": "^3.12.1",
-    "autoprefixer": "10.4.14",
+    "autoprefixer": "^10.4.14",
     "firebase": "^9.22.1",
     "flowbite": "^2.2.1",
     "next": "^13.4.4",
-    "postcss": "8.4.24",
+    "postcss": "^8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.3.2"
+    "tailwindcss": "^3.3.2"
   }
 }
