@@ -281,7 +281,7 @@ export default function Home() {
           <h5 className='text-3xl sm:text-1xl md:text-1xl text-rose-500 p-4 text-left'>Reminder</h5>
           <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- QE remaining score to be earned 60pts(35.00%)</h6>
           <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- AA remaining score to be earned 50pts(20.00%)</h6>
-          <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- FA remaining score to be earned 40pts(14.23%)</h6>
+          <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- FA remaining score to be earned 15pts(5.76%)</h6>
         </div>
         
           <div>
