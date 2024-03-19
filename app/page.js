@@ -81,8 +81,8 @@ export default function Home() {
 
   const getGrade = async (e) => {
     e.preventDefault();
-    const email = newItem['email'];
-    const code = newItem['code'];
+      const email = newItem['email'];
+      const code = newItem['code'];
     setIsLoading(true);
 
     const q = query(collection(db, 'items'));
@@ -118,6 +118,7 @@ export default function Home() {
     setModalOpen(true);
     setItems([]);
   };
+
   
 
   const getCode = async (e) => {
@@ -172,7 +173,63 @@ export default function Home() {
       }
     });
   };
+
+  const handleScoreChange = (e) => {
+    let score = 0;
+    score = parseInt(e.target.value);
+    
+    score = isNaN(score) ? 0 : Math.min(score, 60);
+    
+
+    let alternative = parseFloat(items.AAP);
+    let formative = parseFloat(items.FAP);
+    let exam = (score/60)*100*.35;
+    
+    let tentGrade = alternative + formative + parseFloat(exam);
+    const tentativeGrade = calculateTentativeGrade(tentGrade); // Calculate grade based on score
+    tentGrade = tentGrade.toFixed(2);
+    setItems({
+      ...items,
+      second: tentGrade +'%',
+      grade: tentativeGrade
+    });
+  };
   
+
+  const calculateTentativeGrade = (tentGrade) => {
+    // Your logic to calculate the grade based on the score
+    // For demonstration purposes, let's assume a simple logic
+    
+
+    switch (true) {
+      case tentGrade >= 96:
+        return 1.00;
+      case tentGrade >= 90 && tentGrade < 96:
+        return 1.25;
+      case tentGrade >= 84 && tentGrade < 90:
+        return 1.50;
+      case tentGrade >= 78 && tentGrade < 84:
+        return 1.75;
+      case tentGrade >= 72 && tentGrade < 78:
+        return 2.00;
+      case tentGrade >= 66 && tentGrade < 72:
+        return 2.25;
+      case tentGrade >= 60 && tentGrade < 66:
+        return 2.50;
+      case tentGrade >= 55 && tentGrade < 60:
+        return 2.75;
+      case tentGrade >= 50 && tentGrade < 55:
+        return 3.00;
+      case tentGrade >= 40 && tentGrade < 50:
+        return 4.00;
+      case tentGrade >= 0 && tentGrade < 40:
+        return 5.00;
+      default:
+        return "Invalid percentage";
+    }
+  };
+  
+
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between sm:p-24 p-4'>
@@ -232,7 +289,16 @@ export default function Home() {
               >
                 <div className='p-4 w-full flex justify-between'>
                   <span className=' text-white '>3rd Quarter Examination(35%): </span>
-                  <span className='capitalize text-white '> {items.SE}/60 | {items.SEP}</span>
+                  {/* <span className='capitalize text-white '> {items.SE}/60 | {items.SEP}</span> */}
+                  <input
+                    type="number"
+                    className="bg-gray-800 rounded-md px-3 py-1 text-white text-sm capitalize"
+                    placeholder='Enter your score /60'
+                    id='score'
+                    max={60}
+                    onChange={handleScoreChange}
+                  />
+                   
                 </div>
               </li>
               <li
@@ -280,8 +346,6 @@ export default function Home() {
         <div className='bg-slate-900 p-4 rounded-lg mt-5'>
           <h5 className='text-3xl sm:text-1xl md:text-1xl text-rose-500 p-4 text-left'>Reminder</h5>
           <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- QE remaining score to be earned 60pts(35.00%)</h6>
-          <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- AA remaining score to be earned 50pts(20.00%)</h6>
-          <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- FA remaining score to be earned 15pts(5.76%)</h6>
         </div>
         
           <div>
