@@ -291,10 +291,13 @@ export default function Home() {
                   <span className=' text-white '>3rd Quarter Examination(35%): </span>
                   {/* <span className='capitalize text-white '> {items.SE}/60 | {items.SEP}</span> */}
                   <input
-                    type="number"
+                    type="text"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     className="bg-gray-800 rounded-md px-3 py-1 text-white text-sm capitalize"
-                    placeholder='Enter your score /60'
-                    id='score'
+                    placeholder="Enter your score /60"
+                    id="score"
+                    maxLength="2"
                     max={60}
                     onChange={handleScoreChange}
                   />
