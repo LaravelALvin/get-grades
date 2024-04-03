@@ -301,7 +301,6 @@ export default function Home() {
                     max={60}
                     onChange={handleScoreChange}
                   />
-                   
                 </div>
               </li>
               <li
@@ -348,7 +347,7 @@ export default function Home() {
         </div>
         <div className='bg-slate-900 p-4 rounded-lg mt-5'>
           <h5 className='text-3xl sm:text-1xl md:text-1xl text-rose-500 p-4 text-left'>Reminder</h5>
-          <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>- QE remaining score to be earned 60pts(35.00%)</h6>
+          <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>Quarter Exam, FA4, and AA2 are not yet included in the computation.</h6>
         </div>
         
           <div>
@@ -368,8 +367,6 @@ export default function Home() {
             <h1>Welcome to Next.js</h1>
             <LoadingModal isLoading={isLoading} />
           </div>
-
-          
       </div>
     </main>
   );
