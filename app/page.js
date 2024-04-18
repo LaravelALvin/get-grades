@@ -302,6 +302,7 @@ export default function Home() {
                     placeholder="Enter your score /60"
                     id="score"
                     maxLength="2"
+                    value={items.SE}
                     max={60}
                     onChange={handleScoreChange}
                   />
@@ -312,7 +313,7 @@ export default function Home() {
               >
                 <div className='p-4 w-full flex justify-between'>
                   <span className=' text-white '>Alternative Assessments(40%): </span>
-                  <span className='capitalize text-white '>{items.AA}/100 | {items.AAP}</span>
+                  <span className='capitalize text-white '>{items.AA}/75 | {items.AAP}</span>
                 </div>
               </li>
               <li
