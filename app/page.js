@@ -235,10 +235,10 @@ export default function Home() {
     <main className='flex min-h-screen flex-col items-center justify-between sm:p-24 p-4'>
       <div className='z-10 w-full max-w-5xl items-center justify-between font-mono text-sm '>
         <h1 className='mt--20 text-4xl sm:text-5xl md:text-6xl gradient p-4 text-center'>Get Grades</h1>
-        <div className='bg-slate-900 p-4 rounded-lg mt-5 mb-5'>
+        {/* <div className='bg-slate-900 p-4 rounded-lg mt-5 mb-5'>
           <h5 className='text-3xl sm:text-1xl md:text-1xl text-rose-500 p-4 text-left'>Reminder</h5>
           <h6 className='text-2xl sm:text-1xl md:text-1xl text-rose-500 p-3 text-left'>Quarter Exam, FA4, and AA2 are not yet included in the computation.</h6>
-        </div>
+        </div> */}
         <div className='bg-slate-800 p-4 rounded-lg'>
           <form 
             className='grid grid-cols-4 items-center text-black'
